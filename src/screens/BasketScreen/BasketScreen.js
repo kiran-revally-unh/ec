@@ -1,9 +1,11 @@
-import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { View, Text, StyleSheet, FlatList, Pressable } from 'react-native'
 import restaurants from "../../../assets/data/restaurants.json"
 import { AntDesign } from '@expo/vector-icons';
 import { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 const BasketScreen = () => {
     const restaurant = restaurants[0]
+    const navigation = useNavigation()
     // const getTotalPrice = () => {
     //     return (dish.price * qty).toFixed(2)
     // }

@@ -1,8 +1,11 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Pressable } from 'react-native'
 import restaurants from "../../../assets/data/restaurants.json"
 import { AntDesign } from '@expo/vector-icons';
 import { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 const DishDetailsScreen = () => {
+    const restaurant = restaurants[0]
+    const navigation = useNavigation()
     const dish = restaurants[0].dishes[0]
     const [qty, setQty] = useState(1)
     const onMinus = () => {
@@ -27,9 +30,9 @@ const DishDetailsScreen = () => {
                 <Text style={styles.qty}>{qty}</Text>
                 <AntDesign name="pluscircleo" size={60} color="black" onPress={onPlus} />
             </View>
-            <View style={styles.button}>
+            <Pressable onPress={() => navigation.navigate("Basket")} style={styles.button}>
                 <Text style={styles.buttonText}> Add {qty} to Basket · $ {getTotalPrice()}</Text>
-            </View>
+            </Pressable>
         </View>
     )
 }
