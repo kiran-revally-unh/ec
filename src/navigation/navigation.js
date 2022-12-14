@@ -26,7 +26,7 @@ const Tab = createMaterialBottomTabNavigator();
 
 const HomeTabs = () => {
     return (
-        <Tab.Navigator barStyle={{ backgroundColor: '#ffff' }} >
+        <Tab.Navigator barStyle={{ backgroundColor: '#ffff' }} screenOptions={{ headerShown: false }}>
             <Tab.Screen name='HomeTab' component={HomeStackNavigator} options={{ tabBarIcon: ({ color }) => <Entypo name="home" size={24} color={color} /> }} />
             <Tab.Screen name='OrderTab' component={OrderStackNavigator} options={{ tabBarIcon: ({ color }) => <MaterialIcons name="list-alt" size={24} color={color} /> }} />
             <Tab.Screen name='ProfileTab' component={ProfileScreen} options={{ tabBarIcon: ({ color }) => <FontAwesome name="user" size={24} color={color} /> }} />
@@ -38,7 +38,7 @@ const HomeStackNavigator = () => {
     return (
         <HomeStack.Navigator>
             <HomeStack.Screen name='Restaurants' component={HomeScreen} />
-            <HomeStack.Screen name='Restaurant' component={RestaurantDetails} />
+            <HomeStack.Screen name='Restaurant' component={RestaurantDetails} options={{ headerShown: false }} />
             <HomeStack.Screen name='Dish' component={DishDetailsScreen} />
             <HomeStack.Screen name='Basket' component={BasketScreen} />
         </HomeStack.Navigator>

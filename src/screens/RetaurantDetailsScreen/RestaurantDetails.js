@@ -10,7 +10,6 @@ const RestaurantDetails = () => {
     const route = useRoute()
     const id = route.params?.id;
     const navigation = useNavigation()
-    console.warn(id)
     return (
         <View style={styles.page}>
             <FlatList data={restaurant.dishes}
