@@ -9,6 +9,7 @@ import RestaurantDetails from '../screens/RetaurantDetailsScreen/RestaurantDetai
 // expo icon
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
+import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
 const Stack = createNativeStackNavigator();
 
 const RootNavigator = () => {
@@ -28,7 +29,7 @@ const HomeTabs = () => {
         <Tab.Navigator barStyle={{ backgroundColor: '#ffff' }} >
             <Tab.Screen name='HomeTab' component={HomeStackNavigator} options={{ tabBarIcon: ({ color }) => <Entypo name="home" size={24} color={color} /> }} />
             <Tab.Screen name='OrderTab' component={OrderStackNavigator} options={{ tabBarIcon: ({ color }) => <MaterialIcons name="list-alt" size={24} color={color} /> }} />
-            <Tab.Screen name='ProfileTab' component={BasketScreen} options={{ tabBarIcon: ({ color }) => <FontAwesome name="user" size={24} color={color} /> }} />
+            <Tab.Screen name='ProfileTab' component={ProfileScreen} options={{ tabBarIcon: ({ color }) => <FontAwesome name="user" size={24} color={color} /> }} />
         </Tab.Navigator>
     )
 }
