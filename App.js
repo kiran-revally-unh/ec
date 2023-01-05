@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import RootNavigator from './src/navigation/navigation';
 // aws amplify
 import { Amplify } from 'aws-amplify'
+
 import config from './src/aws-exports'
 //authentication
 //this is we can check with the link https://docs.amplify.aws/start/q/integration/react-native/
@@ -13,7 +14,7 @@ import { withAuthenticator } from 'aws-amplify-react-native';
 
 //configure project connect with our backend
 // we add only this config
-Amplify.configure(config)
+Amplify.configure({ ...config, Analytics: { disabled: true } })
 
 function App() {
 
