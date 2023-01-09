@@ -7,7 +7,7 @@ const RestaurantHeader = ({ restaurant }) => {
             <Image source={{ uri: restaurant.image.startsWith('http') ? restaurant.image : DEFAULT_IMAGE }} style={styles.image} resizeMode="cover" />
             <View style={styles.container}>
                 <Text style={styles.title}>{restaurant.name}</Text>
-                <Text style={styles.subtitle}>$ {restaurant.deliveryFee} · {restaurant.minDeliveryTime} - {restaurant.maxDeliveryTime}minutes</Text>
+                <Text style={styles.subtitle}>$ {restaurant.deliveryFee.toFixed(2)} · {restaurant.minDeliveryTime} - {restaurant.maxDeliveryTime}minutes</Text>
             </View>
             <Text style={styles.menuTitle}>Menu</Text>
         </View>

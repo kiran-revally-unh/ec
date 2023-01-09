@@ -7,15 +7,18 @@ import { AntDesign } from '@expo/vector-icons';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
 import { DataStore } from 'aws-amplify';
-import { Restuarant } from '../../models';
+import { Restuarant, Dish } from '../../models';
 
 const RestaurantDetails = () => {
     // const restaurant = restaurants[0]
     const [restaurant, setRestaurant] = useState(null)
+    const [dishes, setDishes] = useState([])
     const route = useRoute()
     const id = route.params?.id;
     const fetchRestaurant = () => {
-        DataStore.query(Restuarant, id).then(setRestaurant)
+        DataStore.query(Restuarant, id).then(setRestaurant);
+        // fetch dishes  noted "eq" is equal
+        DataStore.query(Dish, (dish) => dish.restuarantID.eq(id)).then(setDishes);
     }
     useEffect(() => {
         //fetch the restaurant with id
@@ -25,9 +28,10 @@ const RestaurantDetails = () => {
     if (!restaurant) {
         return <ActivityIndicator size={'large'} color='gray' style={{ alignItems: 'center', justifyContent: 'center', marginTop: 50, paddingVertical: 30 }} />
     }
+    console.log(dishes);
     return (
         <View style={styles.page}>
-            <FlatList data={restaurant.dishes}
+            <FlatList data={dishes}
                 keyExtractor={(item) => item.id}
                 ListHeaderComponent={() => <RestaurantHeader restaurant={restaurant} />}
                 renderItem={({ item }) => <DishListItem dish={item} />} />
