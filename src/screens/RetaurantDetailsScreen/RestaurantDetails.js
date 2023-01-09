@@ -8,6 +8,7 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
 import { DataStore } from 'aws-amplify';
 import { Restuarant } from '../../models';
+
 const RestaurantDetails = () => {
     // const restaurant = restaurants[0]
     const [restaurant, setRestaurant] = useState(null)

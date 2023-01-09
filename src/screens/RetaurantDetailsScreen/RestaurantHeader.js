@@ -1,9 +1,10 @@
 import React from 'react';
 import { View, StyleSheet, Image, Text } from 'react-native';
+const DEFAULT_IMAGE = "https://media.istockphoto.com/id/1176123462/vector/modern-cafe-interior-empty-no-people-restaurant-cafeteria-design-flat-horizontal-vector.jpg?s=612x612&w=0&k=20&c=PwJmg9JELKEqtpN3k_GTJvD_6HuWckvN3GE2c4mlB-I="
 const RestaurantHeader = ({ restaurant }) => {
     return (
         <View style={styles.menuContainer}>
-            <Image source={{ uri: restaurant.image }} style={styles.image} resizeMode="cover" />
+            <Image source={{ uri: restaurant.image.startsWith('http') ? restaurant.image : DEFAULT_IMAGE }} style={styles.image} resizeMode="cover" />
             <View style={styles.container}>
                 <Text style={styles.title}>{restaurant.name}</Text>
                 <Text style={styles.subtitle}>$ {restaurant.deliveryFee} · {restaurant.minDeliveryTime} - {restaurant.maxDeliveryTime}minutes</Text>
