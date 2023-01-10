@@ -22,8 +22,10 @@ const RestaurantDetails = () => {
     }
     useEffect(() => {
         //fetch the restaurant with id
-        fetchRestaurant()
-    }, [])
+        if (id) {
+            fetchRestaurant()
+        }
+    }, [id])
     const navigation = useNavigation()
     if (!restaurant) {
         return <ActivityIndicator size={'large'} color='gray' style={{ alignItems: 'center', justifyContent: 'center', marginTop: 50, paddingVertical: 30 }} />

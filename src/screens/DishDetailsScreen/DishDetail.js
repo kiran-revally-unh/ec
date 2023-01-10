@@ -1,13 +1,24 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native'
-import restaurants from "../../../assets/data/restaurants.json"
+// import restaurants from "../../../assets/data/restaurants.json"
 import { AntDesign } from '@expo/vector-icons';
 import { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { useEffect } from 'react';
+import { DataStore } from 'aws-amplify';
+import { Dish } from '../../models';
+import { ActivityIndicator } from 'react-native-paper';
 const DishDetailsScreen = () => {
-    const restaurant = restaurants[0]
     const navigation = useNavigation()
-    const dish = restaurants[0].dishes[0]
+    // const dish = restaurants[0].dishes[0]
+    const [dish, setDish] = useState(null)
     const [qty, setQty] = useState(1)
+    const route = useRoute()
+    const id = route.params?.id
+    useEffect(() => {
+        if (id) {
+            DataStore.query(Dish, id).then(setDish)
+        }
+    }, [id])
     const onMinus = () => {
         if (qty > 1) {
 
@@ -17,9 +28,13 @@ const DishDetailsScreen = () => {
     const onPlus = () => {
         setQty(qty + 1)
     }
+    if (!dish) {
+        return <ActivityIndicator size={'large'} color='gray' style={{ alignItems: 'center', justifyContent: 'center', marginTop: 50, paddingVertical: 30 }} />
+    }
     const getTotalPrice = () => {
         return (dish.price * qty).toFixed(2)
     }
+    console.log(dish)
     return (
         <View style={styles.page}>
             <Text style={styles.title}>{dish.name}</Text>
@@ -31,7 +46,7 @@ const DishDetailsScreen = () => {
                 <AntDesign name="pluscircleo" size={60} color="black" onPress={onPlus} />
             </View>
             <Pressable onPress={() => navigation.navigate("Basket")} style={styles.button}>
-                <Text style={styles.buttonText}> Add {qty} to Basket · $ {getTotalPrice()}</Text>
+                <Text style={styles.buttonText}> Add {qty} to Basket · $ {dish.price ? getTotalPrice() : 0}</Text>
             </Pressable>
         </View>
     )
