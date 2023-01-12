@@ -10,13 +10,22 @@ import RestaurantDetails from '../screens/RetaurantDetailsScreen/RestaurantDetai
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
+
+//the reason we create Profile on stack screen is to show the profile screen to the new signup user
+import { useAuthContext } from '../contexts/AuthContext';
 const Stack = createNativeStackNavigator();
 
 const RootNavigator = () => {
+    const { dbUser } = useAuthContext()
     return (
         <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
-            <Stack.Screen name='HomeTabs' component={HomeTabs} />
-            <Stack.Screen name='Profile' component={ProfileScreen} />
+            {
+                dbUser ? (
+
+                    <Stack.Screen name='HomeTabs' component={HomeTabs} />
+                ) :
+                    (<Stack.Screen name='Profile' component={ProfileScreen} />)
+            }
             {/* <Stack.Screen name='Order' component={OrderScreen} />
             <Stack.Screen name='OrderDetail' component={OrdersDetails} /> */}
         </Stack.Navigator>
