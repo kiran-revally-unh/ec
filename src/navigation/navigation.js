@@ -16,6 +16,7 @@ const RootNavigator = () => {
     return (
         <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
             <Stack.Screen name='HomeTabs' component={HomeTabs} />
+            <Stack.Screen name='Profile' component={ProfileScreen} />
             {/* <Stack.Screen name='Order' component={OrderScreen} />
             <Stack.Screen name='OrderDetail' component={OrdersDetails} /> */}
         </Stack.Navigator>

@@ -10,7 +10,9 @@ import config from './src/aws-exports'
 //this is we can check with the link https://docs.amplify.aws/start/q/integration/react-native/
 import { withAuthenticator } from 'aws-amplify-react-native';
 // we need to connect amplify and config together
+//import Authcontext to handle api 
 
+import AuthContextProvider from './src/contexts/AuthContext';
 
 //configure project connect with our backend
 // we add only this config
@@ -20,9 +22,11 @@ function App() {
 
   return (
     <NavigationContainer>
-      <RootNavigator />
+      <AuthContextProvider>
+        <RootNavigator />
+      </AuthContextProvider>
       <StatusBar style="light" />
     </NavigationContainer>
   );
 }
-export default withAuthenticator(App);
+export default withAuthenticator(App); 
