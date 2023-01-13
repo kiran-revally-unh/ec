@@ -18,7 +18,6 @@ const AuthContextProvider = ({ children }) => {
     useEffect(() => {
         //take the user that corrently using app
         //bypassCache is using to make request from server
-
         Auth.currentAuthenticatedUser({ bypassCache: true }).then(setAuthUser)
     }, [])
     useEffect(() => {
