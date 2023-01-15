@@ -4,13 +4,15 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Auth, DataStore } from 'aws-amplify'
 import { User } from '../../models'
 import { useAuthContext } from '../../contexts/AuthContext'
+import { useNavigation } from '@react-navigation/native'
 //put feature in authentication by calling function of signout from aws amplify
 const ProfileScreen = () => {
     const { dbUser } = useAuthContext()
-    const [name, setName] = useState(dbUser?.name || "")
-    const [address, setAddress] = useState(dbUser?.address || "")
-    const [lng, setLng] = useState(dbUser?.lng + " " || "0")
-    const [lat, setLat] = useState(dbUser?.lat + " " || "0")
+    const [name, setName] = useState(dbUser ? dbUser.name : "")
+    const [address, setAddress] = useState(dbUser ? dbUser.address : "")
+    const [lng, setLng] = useState(dbUser ? dbUser.lng + " " : "0")
+    const [lat, setLat] = useState(dbUser ? dbUser.lat + " " : "0")
+    const navigation = useNavigation()
     // take sub from useContext
     const { sub, setDbUser } = useAuthContext()
     const onSave = async () => {
@@ -19,25 +21,22 @@ const ProfileScreen = () => {
         } else {
             await createUser()
         }
+        navigation.goBack()
     }
     const updateUser = async () => {
         try {
-            const user = await DataStore.save(
-                User.copyOf(dbUser, (updated) => {
-                    updated.name = name;
-                    updated.address = address;
-                    updated.lat = parseFloat(lat);
-                    updated.lng = parseFloat(lng);
-                })
-            )
+            const user = await DataStore.save(User.copyOf(dbUser, (users) => { users.name = name; users.address = address; users.lat = parseFloat(lat); users.lng = parseFloat(lng) }))
+            console.log(user);
             setDbUser(user)
         } catch (error) {
             Alert.alert("Error", error.message)
         }
     }
+
     const createUser = async () => {
         try {
             const user = await DataStore.save(new User({ name, address, lat: parseFloat(lat), lng: parseFloat(lng), sub }))
+            console.log(user);
             setDbUser(user)
 
         } catch (error) {
@@ -46,7 +45,7 @@ const ProfileScreen = () => {
     }
     return (
         <SafeAreaView>
-            <Text style={styles}>Profile</Text>
+            <Text style={{ margin: 20 }}>Profile</Text>
             <TextInput value={name} onChangeText={setName} placeholder="Name" style={styles.input} />
             <TextInput value={address} onChangeText={setAddress} placeholder="Address" style={styles.input} />
             <TextInput value={lat} onChangeText={setLat} placeholder="Latitute" style={styles.input} />
