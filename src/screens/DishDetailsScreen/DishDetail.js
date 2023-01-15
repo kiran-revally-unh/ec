@@ -7,12 +7,14 @@ import { useEffect } from 'react';
 import { DataStore } from 'aws-amplify';
 import { Dish } from '../../models';
 import { ActivityIndicator } from 'react-native-paper';
+import { useBasketContext } from '../../contexts/BasketContext';
 const DishDetailsScreen = () => {
     const navigation = useNavigation()
     // const dish = restaurants[0].dishes[0]
     const [dish, setDish] = useState(null)
-    const [qty, setQty] = useState(1)
+    const [quantity, setquantity] = useState(1)
     const route = useRoute()
+    const { addDishToBasket } = useBasketContext()
     const id = route.params?.id
     useEffect(() => {
         if (id) {
@@ -20,21 +22,23 @@ const DishDetailsScreen = () => {
         }
     }, [id])
     const onMinus = () => {
-        if (qty > 1) {
+        if (quantity > 1) {
 
-            setQty(qty - 1)
+            setquantity(quantity - 1)
         }
     }
     const onPlus = () => {
-        setQty(qty + 1)
+        setquantity(quantity + 1)
     }
     if (!dish) {
         return <ActivityIndicator size={'large'} color='gray' style={{ alignItems: 'center', justifyContent: 'center', marginTop: 50, paddingVertical: 30 }} />
     }
     const getTotalPrice = () => {
-        return (dish.price * qty).toFixed(2)
+        return (dish.price * quantity).toFixed(2)
     }
-    console.log(dish)
+    const onAddToBasket = async () => {
+        await addDishToBasket(dish, quantity)
+    }
     return (
         <View style={styles.page}>
             <Text style={styles.title}>{dish.name}</Text>
@@ -42,11 +46,11 @@ const DishDetailsScreen = () => {
             <View style={styles.separator} />
             <View style={styles.row}>
                 <AntDesign name="minuscircleo" size={60} color="black" onPress={onMinus} />
-                <Text style={styles.qty}>{qty}</Text>
+                <Text style={styles.quantity}>{quantity}</Text>
                 <AntDesign name="pluscircleo" size={60} color="black" onPress={onPlus} />
             </View>
-            <Pressable onPress={() => navigation.navigate("Basket")} style={styles.button}>
-                <Text style={styles.buttonText}> Add {qty} to Basket · $ {dish.price ? getTotalPrice() : 0}</Text>
+            <Pressable onPress={onAddToBasket} style={styles.button}>
+                <Text style={styles.buttonText}> Add {quantity} to Basket · $ {dish.price ? getTotalPrice() : 0}</Text>
             </Pressable>
         </View>
     )
@@ -75,7 +79,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginTop: 50
     },
-    qty: {
+    quantity: {
         fontSize: 25,
         marginHorizontal: 20
     },

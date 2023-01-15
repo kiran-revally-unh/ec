@@ -26,7 +26,6 @@ const ProfileScreen = () => {
     const updateUser = async () => {
         try {
             const user = await DataStore.save(User.copyOf(dbUser, (users) => { users.name = name; users.address = address; users.lat = parseFloat(lat); users.lng = parseFloat(lng) }))
-            console.log(user);
             setDbUser(user)
         } catch (error) {
             Alert.alert("Error", error.message)
@@ -36,7 +35,6 @@ const ProfileScreen = () => {
     const createUser = async () => {
         try {
             const user = await DataStore.save(new User({ name, address, lat: parseFloat(lat), lng: parseFloat(lng), sub }))
-            console.log(user);
             setDbUser(user)
 
         } catch (error) {

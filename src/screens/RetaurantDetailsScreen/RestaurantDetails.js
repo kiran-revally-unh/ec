@@ -30,7 +30,6 @@ const RestaurantDetails = () => {
     if (!restaurant) {
         return <ActivityIndicator size={'large'} color='gray' style={{ alignItems: 'center', justifyContent: 'center', marginTop: 50, paddingVertical: 30 }} />
     }
-    console.log(dishes);
     return (
         <View style={styles.page}>
             <FlatList data={dishes}

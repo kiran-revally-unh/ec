@@ -5,10 +5,10 @@ const BasketContext = createContext({});
 
 const BasketContextProvider = ({ children }) => {
     const addDishToBasket = (dish, quantity) => {
-
+        console.log(dish, quantity)
     }
     return (
-        <BasketContext.Provider >
+        <BasketContext.Provider value={{ addDishToBasket }}>
             {children}
         </BasketContext.Provider>
     )
