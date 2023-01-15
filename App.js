@@ -11,7 +11,7 @@ import config from './src/aws-exports'
 import { withAuthenticator } from 'aws-amplify-react-native';
 // we need to connect amplify and config together
 //import Authcontext to handle api 
-
+import BasketContextProvider from './src/contexts/BasketContext';
 import AuthContextProvider from './src/contexts/AuthContext';
 
 //configure project connect with our backend
@@ -23,7 +23,9 @@ function App() {
   return (
     <NavigationContainer>
       <AuthContextProvider>
-        <RootNavigator />
+        <BasketContextProvider>
+          <RootNavigator />
+        </BasketContextProvider>
       </AuthContextProvider>
       <StatusBar style="light" />
     </NavigationContainer>
