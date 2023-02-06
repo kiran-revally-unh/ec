@@ -38,6 +38,7 @@ const DishDetailsScreen = () => {
     }
     const onAddToBasket = async () => {
         await addDishToBasket(dish, quantity)
+        navigation.goBack();
     }
     return (
         <View style={styles.page}>

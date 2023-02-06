@@ -10,6 +10,7 @@ import RestaurantDetails from '../screens/RetaurantDetailsScreen/RestaurantDetai
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
+// get data
 
 //the reason we create Profile on stack screen is to show the profile screen to the new signup user
 import { useAuthContext } from '../contexts/AuthContext';
